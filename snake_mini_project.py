@@ -11,9 +11,9 @@ import random
 
 turtle.tracer(1,0) 
 
-SIZE_X=800
-SIZE_Y=500
-turtle.setup(SIZE_X, SIZE_Y)
+SIZE_X=550
+SIZE_Y=550
+turtle.setup(800, 800)
 
 turtle.penup()
 
@@ -24,6 +24,27 @@ pos_list = []
 stamp_list = []
 food_pos = []
 food_stamps = []
+score=0
+border = turtle.clone()
+border.hideturtle()
+border.pensize(8)
+border.speed(0)
+border.penup()
+border.goto(300,300)
+border.pendown()
+border.goto(300,-300)
+border.goto(-300,-300)
+border.goto(-300,300)
+border.goto(300,300)
+border.penup()
+border.goto(-150,330)
+border.pendown()
+border.write("SNAKE GAME!", font=("Arial", 35, "normal"))
+score1 = turtle.clone()
+score1.hideturtle()
+score1.penup()
+score1.goto(-50,-330)
+score1.write("score:" + str(score), font=("Arial", 20, "normal"))
 
 #Set up positions (x,y) of boxes that make up the snake
 snake = turtle.clone()
@@ -77,10 +98,10 @@ RIGHT = 3
 #
 direction = UP
 
-UP_EDGE = 250
-DOWN_EDGE = -250
-RIGHT_EDGE = 400
-LEFT_EDGE = -400
+UP_EDGE = 300
+DOWN_EDGE = -300
+RIGHT_EDGE = 300
+LEFT_EDGE = -300
 
 
 def up():
@@ -213,6 +234,13 @@ def move_snake():
         food_pos.pop(food_ind) #Remove eaten food position
         food_stamps.pop(food_ind) #Remove eaten food stamp
         print("You have eaten the food!")
+        score1.penup()
+        score1.goto(-50,-330)
+        global score
+        score += 1
+        score1.clear()
+        score1.write("score:" + str(score), font=("Arial", 20, "normal"))
+                    
         #START_LENGTH += 1
 
         
