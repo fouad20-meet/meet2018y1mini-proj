@@ -14,11 +14,14 @@ turtle.tracer(1,0)
 SIZE_X=550
 SIZE_Y=550
 turtle.setup(800, 800)
-
+RAINBOW = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
+screen = turtle.Screen()
+screen.setup(800,800)
+screen.bgpic('giphy.gif')
 turtle.penup()
 
 SQUARE_SIZE = 20
-START_LENGTH = 4
+START_LENGTH = 2
 
 pos_list = []
 stamp_list = []
@@ -43,9 +46,9 @@ border.write("SNAKE GAME!", font=("Arial", 35, "normal"))
 score1 = turtle.clone()
 score1.hideturtle()
 score1.penup()
-score1.goto(-50,-330)
+score1.goto(-50,-340)
 score1.write("score:" + str(score), font=("Arial", 20, "normal"))
-
+z = 0
 #Set up positions (x,y) of boxes that make up the snake
 snake = turtle.clone()
 snake.shape("square")
@@ -71,10 +74,15 @@ for i in range(START_LENGTH) :
     pos_list.append(my_pos) 
 
 #    #Save the stamp ID! You'll need to erase it later. Then append
-#    # it to stamp_list.             
+#    # it to stamp_list.
+   
+    
+    if z == 7:
+        z = 0
+    snake.color(RAINBOW[z])
     stamp_id = snake.stamp()
     stamp_list.append(stamp_id)
-
+    z += 1
 
 ###############################################################
 #                    PART 2 -- READ INSTRUCTIONS!!
@@ -214,6 +222,13 @@ def move_snake():
     elif new_y_pos <= DOWN_EDGE:
         print("You hit the down edge! Game over!")
         quit()
+    global z
+    if z == 7:
+        z = 0
+    snake.color(RAINBOW[z])
+    
+    
+    z += 1
 #    #4. Write the conditions for UP and DOWN on your own
 #    ##### YOUR CODE HERE
 #
@@ -235,12 +250,16 @@ def move_snake():
         food_stamps.pop(food_ind) #Remove eaten food stamp
         print("You have eaten the food!")
         score1.penup()
-        score1.goto(-50,-330)
+        score1.goto(-50,-340)
         global score
         score += 1
         score1.clear()
         score1.write("score:" + str(score), font=("Arial", 20, "normal"))
-                    
+        global TIME_STEP 
+        if TIME_STEP == 1:
+            pass
+        else:
+            TIME_STEP = TIME_STEP - 9
         #START_LENGTH += 1
 
         
